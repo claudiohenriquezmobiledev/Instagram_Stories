@@ -12,7 +12,7 @@ struct IGHomeViewModel {
     
     //MARK: - iVars
     //Keep it Immutable! don't get Dirty :P
-    private let stories: IGStories? = {
+    private let storiesData: IGStories? = {
         do {
             return try IGMockLoader.loadMockFile(named: "stories.json", bundle: .main)
         }catch let e as MockLoaderError {
@@ -25,20 +25,14 @@ struct IGHomeViewModel {
     
     //MARK: - Public functions
     public func getStories() -> IGStories? {
-        return stories
+        return storiesData
     }
     public func numberOfItemsInSection(_ section:Int) -> Int {
-        if let count = stories?.otherStoriesCount {
-            return count + 1
-        }
-        return 1
+        guard let count = storiesData?.stories.count else { return 0 }
+        return count
     }
     public func cellForItemAt(indexPath:IndexPath) -> IGStory? {
-        if indexPath.row == 0 {
-            return stories?.myStory[indexPath.row]
-        }else {
-            return stories?.otherStories[indexPath.row-1]
-        }
+        return storiesData?.stories[indexPath.row]
     }
     
 }

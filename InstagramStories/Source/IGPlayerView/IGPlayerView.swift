@@ -195,6 +195,7 @@ extension IGPlayerView: PlayerControls {
             if let pLayer = playerLayer {
                 pLayer.videoGravity = .resizeAspect
                 pLayer.frame = self.bounds
+                pLayer.player?.isMuted = false
                 self.layer.addSublayer(pLayer)
             }
         }

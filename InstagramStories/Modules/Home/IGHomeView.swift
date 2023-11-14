@@ -9,13 +9,22 @@
 import Foundation
 import UIKit
 
-class IGHomeView: UIView {
+protocol IGHomeViewDelegate: AnyObject {
+    func callToIGStoryPreviewController(stories: [IGStory],
+                                        handPickedStoryIndex:  Int,
+                                        handPickedSnapIndex: Int)
+}
+
+public class IGHomeView: UIView {
+    
+    private var viewModel: IGHomeViewModel = IGHomeViewModel()
+    private var stories: IGStories?
+    weak var delegate: IGHomeViewDelegate?
     
     //MARK: - iVars
     lazy var layout: UICollectionViewFlowLayout = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
-        flowLayout.itemSize = CGSize(width: 100, height: 100)
         return flowLayout
     }()
     lazy var collectionView: UICollectionView = {
@@ -24,20 +33,22 @@ class IGHomeView: UIView {
         cv.showsVerticalScrollIndicator = false
         cv.showsHorizontalScrollIndicator = false
         cv.register(IGStoryListCell.self, forCellWithReuseIdentifier: IGStoryListCell.reuseIdentifier)
-        cv.register(IGAddStoryCell.self, forCellWithReuseIdentifier: IGAddStoryCell.reuseIdentifier)
         cv.translatesAutoresizingMaskIntoConstraints = false
         return cv
     }()
     
     //MARK: - Overridden functions
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        backgroundColor = UIColor.rgb(from: 0xEFEFF4)
+    public init(stories: IGStories?) {
+        self.stories = stories
+        super.init(frame: .zero)
+//        backgroundColor = UIColor.rgb(from: 0xEFEFF4)
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
         createUIElements()
         installLayoutConstraints()
     }
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    
+    required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -53,3 +64,36 @@ class IGHomeView: UIView {
             collectionView.heightAnchor.constraint(equalToConstant: 100)])
     }
 }
+
+//MARK: - Extension|UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout
+extension IGHomeView: UICollectionViewDelegate,UICollectionViewDataSource,
+UICollectionViewDelegateFlowLayout {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        debugPrint(viewModel.numberOfItemsInSection(section))
+        return viewModel.numberOfItemsInSection(section)
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: IGStoryListCell.reuseIdentifier,for: indexPath) as? IGStoryListCell else { fatalError() }
+        let story = viewModel.cellForItemAt(indexPath: indexPath)
+        cell.story = story
+        return cell
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+       DispatchQueue.main.async {
+           if let stories_copy = try? self.stories?.copy().stories {
+               self.delegate?.callToIGStoryPreviewController(stories: stories_copy,
+                                                        handPickedStoryIndex:  indexPath.row, handPickedSnapIndex: 0)
+            }
+        }
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return indexPath.row == 0 ? CGSize(width: 100, height: 100) : CGSize(width: 80, height: 100)
+    }
+}
+
+

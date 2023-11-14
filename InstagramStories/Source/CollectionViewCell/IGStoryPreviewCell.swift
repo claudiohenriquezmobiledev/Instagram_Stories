@@ -29,6 +29,8 @@ final class IGStoryPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
     }
     
     //MARK:- Private iVars
+    
+    
     private lazy var storyHeaderView: IGStoryPreviewHeaderView = {
         let v = IGStoryPreviewHeaderView()
         v.translatesAutoresizingMaskIntoConstraints = false
@@ -215,7 +217,6 @@ final class IGStoryPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
         videoView.translatesAutoresizingMaskIntoConstraints = false
         videoView.tag = snapIndex + snapViewTagIndicator
         videoView.playerObserverDelegate = self
-        
         /**
          Delete if there is any snapview/videoview already present in that frame location. Because of snap delete functionality, snapview/videoview can occupy different frames(created in 2nd position(frame), when 1st postion snap gets deleted, it will move to first position) which leads to weird issues.
          - If only snapViews are there, it will not create any issues.
@@ -368,6 +369,7 @@ final class IGStoryPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
         }
         resetSnapProgressors(with: snapIndex)
     }
+    
     private func willMoveToPreviousOrNextSnap(n: Int) {
         if let count = story?.snapsCount {
             if n < count {
