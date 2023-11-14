@@ -13,6 +13,7 @@ protocol StoryPreviewProtocol: AnyObject {
     func didCompletePreview()
     func moveToPreviousStory()
     func didTapCloseButton()
+    func didTapActionButton()
 }
 enum SnapMovementDirectionState {
     case forward
@@ -71,6 +72,14 @@ final class IGStoryPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
         sv.translatesAutoresizingMaskIntoConstraints = false
         return sv
     }()
+    
+    private lazy var actionButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(didTapActionButton), for: .touchUpInside)
+        return button
+    }()
+    
     public var getSnapIndex: Int {
         return snapIndex
     }
@@ -83,15 +92,15 @@ final class IGStoryPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
                         if let snap = story?.snaps[snapIndex] {
                             if snap.kind != MimeType.video {
                                 debugPrint("titleEvent ", snap.additionalData?.titleEvent)
-                                if let snapView = getSnapview() {
-                                    startRequest(snapView: snapView, with: snap.url)
-                                } else {
-                                    let snapView = createSnapView()
-                                    startRequest(snapView: snapView, with: snap.url)
-                                }
-//                                let snapView = getSnapview() ?? createSnapView()
-//                                let additionalData = snap.additionalData ?? nil
-//                                startRequest(snapView: snapView, with: snap.url)
+//                                if let snapView = getSnapview() {
+//                                    startRequest(snapView: snapView, with: snap.url)
+//                                } else {
+//                                    let snapView = createSnapView()
+//                                    startRequest(snapView: snapView, with: snap.url)
+//                                }
+                                let snapView = getSnapview() ?? createSnapView()
+                                let additionalData = snap.additionalData ?? nil
+                                startRequest(snapView: snapView, with: snap.url, additionalData: additionalData)
                                 
                             }else {
                                 if let videoView = getVideoView(with: snapIndex) {
@@ -253,13 +262,17 @@ final class IGStoryPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
         return nil
     }
     
-    private func startRequest(snapView: UIImageView, with url: String) {
+    private func startRequest(snapView: UIImageView, with url: String, additionalData: IGAdditionalData? = nil) {
         snapView.setImage(url: url, style: .squared) { result in
             DispatchQueue.main.async { [weak self] in
                 guard let strongSelf = self else { return}
                 switch result {
                     case .success(_):
                         /// Start progressor only if handpickedSnapIndex matches with snapIndex and the requested image url should be matched with current snapIndex imageurl
+                    if let addData = additionalData {
+                        strongSelf.addClickableComponent(snapView: snapView, additionalData: addData)
+                    }
+                    
                         if(strongSelf.handpickedSnapIndex == strongSelf.snapIndex && url == strongSelf.story!.snaps[strongSelf.snapIndex].url) {
                             strongSelf.startProgressors()
                     }
@@ -268,6 +281,50 @@ final class IGStoryPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
                 }
             }
         }
+    }
+    
+    private func addClickableComponent(snapView: UIImageView, additionalData: IGAdditionalData) {
+        if let titleEvent = additionalData.titleEvent {
+            actionButton.setTitle(titleEvent, for: .normal)
+            actionButton.setTitleColor(hexStringToUIColor(hex: "#EC7000"), for: .normal)
+            actionButton.backgroundColor = .white
+            actionButton.layer.cornerRadius = 5
+            actionButton.layer.borderWidth = 1
+            actionButton.layer.borderColor = hexStringToUIColor(hex: "#EC7000").cgColor
+            snapView.addSubview(self.actionButton)
+            
+            NSLayoutConstraint.activate([
+    //            actionButton.igCenterXAnchor.constraint(equalTo: snapView.igCenterXAnchor),
+    //            actionButton.igCenterYAnchor.constraint(equalTo: snapView.igCenterYAnchor),
+                actionButton.igLeftAnchor.constraint(equalTo: snapView.igLeftAnchor, constant: 10),
+    //            actionButton.widthAnchor.constraint(equalTo: snapView.widthAnchor, constant: 20),
+                actionButton.heightAnchor.constraint(equalToConstant: 50),
+                actionButton.igRightAnchor.constraint(equalTo: snapView.igRightAnchor, constant: -10),
+                actionButton.igBottomAnchor.constraint(equalTo: snapView.igBottomAnchor, constant: -10)
+                ])
+        }
+    }
+    
+    private func hexStringToUIColor (hex:String) -> UIColor {
+        var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+
+        if (cString.hasPrefix("#")) {
+            cString.remove(at: cString.startIndex)
+        }
+
+        if ((cString.count) != 6) {
+            return UIColor.gray
+        }
+
+        var rgbValue:UInt64 = 0
+        Scanner(string: cString).scanHexInt64(&rgbValue)
+
+        return UIColor(
+            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+            alpha: CGFloat(1.0)
+        )
     }
     
     private func showRetryButton(with url: String, for snapView: UIImageView) {
@@ -301,6 +358,10 @@ final class IGStoryPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
                 }
             }
         }
+    }
+    
+    @objc private func didTapActionButton(){
+        self.delegate?.didTapActionButton()
     }
     @objc private func didLongPress(_ sender: UILongPressGestureRecognizer) {
         longPressGestureState = sender.state

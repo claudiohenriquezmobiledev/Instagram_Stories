@@ -336,4 +336,9 @@ extension IGStoryPreviewController: StoryPreviewProtocol {
     func didTapCloseButton() {
         self.dismiss(animated: true, completion:nil)
     }
+    
+    func didTapActionButton() {
+        debugPrint("se gatilla ActionButton: ")
+    }
+    
 }
