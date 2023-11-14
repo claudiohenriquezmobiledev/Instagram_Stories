@@ -5,7 +5,7 @@
          "last_updated":1504799962,
          "user":{
             "id":"b2",
-            "name":"Terasa",
+            "name":"Transfer",
             "picture":"https://randomuser.me/api/portraits/med/women/1.jpg"
          },
          "snaps_count":1,
@@ -14,7 +14,14 @@
                "id":"c6",
                "mime_type":"image",
                "url":"https://samplelib.com/lib/preview/jpeg/sample-clouds-400x300.jpg",
-               "last_updated":"1m"
+               "last_updated":"1m",
+               "subtitle_description": "440% dcto. en #RutaGourmet con tus tarjetas de crédito Itaú",
+               "additional_data": {
+                   "title_event": "ir a 440%",
+                   "type_component": "button",
+                   "action_type": "E",
+                   "internal_flow": ""
+               }
             }
          ]
       },
@@ -32,25 +39,53 @@
                "id":"c7",
                "mime_type":"image",
                "url":"https://samplelib.com/lib/preview/jpeg/sample-city-park-400x300.jpg",
-               "last_updated":"1m"
+               "last_updated":"1m",
+               "subtitle_description": "11% dcto. en #RutaGourmet con tus tarjetas de crédito Itaú",
+               "additional_data": {
+                   "title_event": "ir a 11%",
+                   "type_component": "button",
+                   "action_type": "I",
+                   "internal_flow": "code_001"
+               }
             },
             {
                "id":"c8",
                "mime_type":"video",
                "url":"https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
-               "last_updated":"2m"
+               "last_updated":"2m",
+               "subtitle_description": "456780% dcto. en #RutaGourmet con tus tarjetas de crédito Itaú",
+               "additional_data": {
+                   "title_event": "ir a 45678%",
+                   "type_component": "link",
+                   "action_type": "E",
+                   "internal_flow": ""
+               }
             },
             {
                "id":"c9",
                "mime_type":"image",
                "url":"https://images.squarespace-cdn.com/content/5397b451e4b07f25d1682866/1447280096400-7N8KN5F5ZWTK2PJXZRL9/Samsung-Galaxy-S5-Android-Wallpaper-Good-Dino-2.jpg",
-               "last_updated":"2m"
+               "last_updated":"2m",
+               "subtitle_description": "09870% dcto. en #RutaGourmet con tus tarjetas de crédito Itaú",
+               "additional_data": {
+                   "title_event": "ir a 09870%",
+                   "type_component": "link",
+                   "action_type": "E",
+                   "internal_flow": ""
+               }
             },
             {
                "id":"c10",
                "mime_type":"image",
                "url":"https://randomuser.me/api/portraits/med/women/2.jpg",
-               "last_updated":"2m"
+               "last_updated":"2m",
+               "subtitle_description": "1230% dcto. en #RutaGourmet con tus tarjetas de crédito Itaú",
+               "additional_data": {
+                   "title_event": "ir a 1230%",
+                   "type_component": "button",
+                   "action_type": "I",
+                   "internal_flow": "code_002"
+               }
             }
          ]
       },
@@ -68,80 +103,51 @@
                "id":"c11",
                "mime_type":"image",
                "url":"https://samplelib.com/lib/preview/jpeg/sample-birch-400x300.jpg",
-               "last_updated":"8m"
+               "last_updated":"8m",
+               "subtitle_description": "002% dcto. en #RutaGourmet con tus tarjetas de crédito Itaú",
+               "additional_data": {}
             },
             {
                "id":"c12",
                "mime_type":"video",
                "url":"https://samplelib.com/lib/preview/mp4/sample-30s.mp4",
-               "last_updated":"9m"
+               "last_updated":"9m",
+               "subtitle_description": "25% dcto. en #RutaGourmet con tus tarjetas de crédito Itaú",
+               "additional_data": {}
             },
             {
                "id":"c13",
                "mime_type":"image",
                "url":"https://hdqwalls.com/download/8-bit-pixel-art-city-2o-1280x2120.jpg",
-               "last_updated":"10m"
+               "last_updated":"10m",
+               "subtitle_description": "490% dcto. en #RutaGourmet con tus tarjetas de crédito Itaú",
+               "additional_data": {
+                   "title_event": "ir a 490%",
+                   "type_component": "button",
+                   "action_type": "E",
+                   "internal_flow": ""
+               }
             },
             {
                "id":"c14",
                "mime_type":"image",
                "url":"https://i-cdn.phonearena.com/images/articles/257597-image/boom.jpg",
-               "last_updated":"11m"
+               "last_updated":"11m",
+               "subtitle_description": "1000% dcto. en #RutaGourmet con tus tarjetas de crédito Itaú",
+               "additional_data": {}
             },
             {
                "id":"c15",
                "mime_type":"video",
                "url":"https://samplelib.com/lib/preview/mp4/sample-20s.mp4",
-               "last_updated":"12m"
-            }
-         ]
-      },
-      {
-         "id":"a5",
-         "last_updated":1504799092,
-         "user":{
-            "id":"b5",
-            "name":"Rossie",
-            "picture":"https://randomuser.me/api/portraits/med/women/4.jpg",
-            "last_updated":"13m"
-         },
-         "snaps_count":3,
-         "snaps":[
-            {
-               "id":"c16",
-               "mime_type":"image",
-               "url":"https://images.bluethumb.com.au/uploads/listing/100077/soo-beng-lim-crack-of-dawn-bluethumb-4f06.jpg?w=295&max-h=852&dpi=2&fit=crop&auto=compress&cs=tinysrgb&q=70&s=b82a1eb65ef9dd2cb69291e74fffb9a9",
-               "last_updated":"14m"
-            },
-            {
-               "id":"c17",
-               "mime_type":"video",
-               "url":"https://samplelib.com/lib/preview/mp4/sample-15s.mp4",
-               "last_updated":"15m"
-            },
-            {
-               "id":"c18",
-               "mime_type":"image",
-               "url":"https://images.bluethumb.com.au/uploads/listing/166692/aiman-naumaan-still-life-1-apples-and-candles-bluethumb-7a61.JPG?w=295&max-h=852&dpi=2&fit=crop&auto=compress&cs=tinysrgb&q=70&s=e55c32e90bc525489233838783a456dd",
-               "last_updated":"16m"
-            }
-         ]
-      },
-      {
-         "id":"a2",
-         "last_updated":1504799962,
-         "user":{
-            "id":"b2",
-            "name":"Terasa",
-            "picture":"https://randomuser.me/api/portraits/med/women/1.jpg"
-         },
-         "snaps_count":1,
-         "snaps":[
-            {
-               "id":"c6",
-               "mime_type":"video",
-               "url":"https://samplelib.com/lib/preview/mp4/sample-10s.mp4",
-               "last_updated":"1m"
+               "last_updated":"12m",
+               "subtitle_description": "30% dcto. en #RutaGourmet con tus tarjetas de crédito Itaú",
+               "additional_data": {
+                   "title_event": "ir a 30%",
+                   "type_component": "link",
+                   "action_type": "E",
+                   "internal_flow": ""
+               }
             }
          ]
       }

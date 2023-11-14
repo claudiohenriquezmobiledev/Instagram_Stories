@@ -34,6 +34,7 @@ final class IGStoryPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
     private lazy var storyHeaderView: IGStoryPreviewHeaderView = {
         let v = IGStoryPreviewHeaderView()
         v.translatesAutoresizingMaskIntoConstraints = false
+        v.backgroundColor = .red
         return v
     }()
     private lazy var longPress_gesture: UILongPressGestureRecognizer = {
@@ -81,12 +82,17 @@ final class IGStoryPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
                     if snapIndex < story?.snapsCount ?? 0 {
                         if let snap = story?.snaps[snapIndex] {
                             if snap.kind != MimeType.video {
+                                debugPrint("titleEvent ", snap.additionalData?.titleEvent)
                                 if let snapView = getSnapview() {
                                     startRequest(snapView: snapView, with: snap.url)
                                 } else {
                                     let snapView = createSnapView()
                                     startRequest(snapView: snapView, with: snap.url)
                                 }
+//                                let snapView = getSnapview() ?? createSnapView()
+//                                let additionalData = snap.additionalData ?? nil
+//                                startRequest(snapView: snapView, with: snap.url)
+                                
                             }else {
                                 if let videoView = getVideoView(with: snapIndex) {
                                     startPlayer(videoView: videoView, with: snap.url)
@@ -95,7 +101,7 @@ final class IGStoryPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
                                     startPlayer(videoView: videoView, with: snap.url)
                                 }
                             }
-                            storyHeaderView.lastUpdatedLabel.text = snap.lastUpdated
+                            storyHeaderView.snaperNameLabel.text = snap.subtitleDescription
                         }
                 }
                 case .backward:
@@ -114,7 +120,7 @@ final class IGStoryPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
                                     self.startPlayer(videoView: videoView, with: snap.url)
                                 }
                             }
-                            storyHeaderView.lastUpdatedLabel.text = snap.lastUpdated
+                            storyHeaderView.snaperNameLabel.text = snap.subtitleDescription
                         }
                 }
             }

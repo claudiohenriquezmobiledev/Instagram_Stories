@@ -17,7 +17,22 @@ public class IGSnap: Codable {
     public let mimeType: String
     public let lastUpdated: String
     public let url: String
+    public let subtitleDescription: String
+    public var additionalData: IGAdditionalData?
     // Store the deleted snaps id in NSUserDefaults, so that when app get relaunch deleted snaps will not display.
+    init(internalIdentifier: String,
+         mimeType: String,
+         lastUpdated: String,
+         url: String, subtitleDescription: String,
+         additionalData: IGAdditionalData?) {
+        self.internalIdentifier = internalIdentifier
+        self.mimeType = mimeType
+        self.lastUpdated = lastUpdated
+        self.url = url
+        self.subtitleDescription = subtitleDescription
+        self.additionalData = additionalData
+    }
+    
     public var isDeleted: Bool {
         set{
             UserDefaults.standard.set(newValue, forKey: internalIdentifier)
@@ -41,5 +56,7 @@ public class IGSnap: Codable {
         case mimeType = "mime_type"
         case lastUpdated = "last_updated"
         case url = "url"
+        case subtitleDescription = "subtitle_description"
+        case additionalData = "additional_data"
     }
 }

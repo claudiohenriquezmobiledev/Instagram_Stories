@@ -39,18 +39,8 @@ final class IGStoryPreviewHeaderView: UIView {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    private let detailView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    private let snaperNameLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .white
-        return label
-    }()
-    internal let lastUpdatedLabel: UILabel = {
+    
+    public let snaperNameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
@@ -100,9 +90,7 @@ final class IGStoryPreviewHeaderView: UIView {
         backgroundColor = .clear
         addSubview(getProgressView)
         addSubview(snaperImageView)
-        addSubview(detailView)
-        detailView.addSubview(snaperNameLabel)
-        detailView.addSubview(lastUpdatedLabel)
+        addSubview(snaperNameLabel)
         addSubview(soundButton)
         addSubview(closeButton)
     }
@@ -122,25 +110,25 @@ final class IGStoryPreviewHeaderView: UIView {
             snaperImageView.heightAnchor.constraint(equalToConstant: 40),
             snaperImageView.igLeftAnchor.constraint(equalTo: self.igLeftAnchor, constant: 10),
             snaperImageView.igCenterYAnchor.constraint(equalTo: self.igCenterYAnchor),
-            detailView.igLeftAnchor.constraint(equalTo: snaperImageView.igRightAnchor, constant: 10)
+            snaperNameLabel.igLeftAnchor.constraint(equalTo: snaperImageView.igRightAnchor, constant: 10)
             ])
         layoutIfNeeded() //To make snaperImageView round. Adding this to somewhere else will create constraint warnings.
         
         //Setting constraints for detailView
         NSLayoutConstraint.activate([
-            detailView.igLeftAnchor.constraint(equalTo: snaperImageView.igRightAnchor, constant: 10),
-            detailView.igCenterYAnchor.constraint(equalTo: snaperImageView.igCenterYAnchor),
-            detailView.heightAnchor.constraint(equalToConstant: 40),
-            soundButton.igLeftAnchor.constraint(equalTo: detailView.igRightAnchor, constant: 10)
+            snaperNameLabel.igLeftAnchor.constraint(equalTo: snaperImageView.igRightAnchor, constant: 10),
+            snaperNameLabel.igCenterYAnchor.constraint(equalTo: snaperImageView.igCenterYAnchor),
+            snaperNameLabel.heightAnchor.constraint(equalToConstant: 40),
+            soundButton.igLeftAnchor.constraint(equalTo: snaperNameLabel.igRightAnchor, constant: 10)
             ])
         
         //Setting constraints for soundButton
         NSLayoutConstraint.activate([
-            soundButton.igLeftAnchor.constraint(equalTo: detailView.igRightAnchor, constant: 10),
+            soundButton.igLeftAnchor.constraint(equalTo: snaperNameLabel.igRightAnchor, constant: 10),
             soundButton.igCenterYAnchor.constraint(equalTo: self.igCenterYAnchor),
 //            soundButton.igRightAnchor.constraint(equalTo: closeButton.igLeftAnchor),
-            soundButton.widthAnchor.constraint(equalToConstant: 40),
-            soundButton.heightAnchor.constraint(equalToConstant: 40),
+            soundButton.widthAnchor.constraint(equalToConstant: 30),
+            soundButton.heightAnchor.constraint(equalToConstant: 30),
             closeButton.igLeftAnchor.constraint(equalTo: soundButton.igRightAnchor, constant: 10),
             ])
         
@@ -153,19 +141,7 @@ final class IGStoryPreviewHeaderView: UIView {
             closeButton.heightAnchor.constraint(equalToConstant: 80)
             ])
         
-        //Setting constraints for snapperNameLabel
-        NSLayoutConstraint.activate([
-            snaperNameLabel.igLeftAnchor.constraint(equalTo: detailView.igLeftAnchor),
-            lastUpdatedLabel.igLeftAnchor.constraint(equalTo: snaperNameLabel.igRightAnchor, constant: 10.0),
-            snaperNameLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 100),
-            snaperNameLabel.igCenterYAnchor.constraint(equalTo: detailView.igCenterYAnchor)
-            ])
-        
-        //Setting constraints for lastUpdatedLabel
-        NSLayoutConstraint.activate([
-            lastUpdatedLabel.igCenterYAnchor.constraint(equalTo: detailView.igCenterYAnchor),
-            lastUpdatedLabel.igLeftAnchor.constraint(equalTo: snaperNameLabel.igRightAnchor, constant:10.0)
-            ])
+
     }
     private func applyShadowOffset() {
         layer.masksToBounds = false
@@ -271,6 +247,5 @@ final class IGStoryPreviewHeaderView: UIView {
                 pv.widthConstraint!
                 ])
         }
-        snaperNameLabel.text = story?.user.name
     }
 }
