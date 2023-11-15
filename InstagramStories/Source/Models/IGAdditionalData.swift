@@ -12,14 +12,14 @@ public class IGAdditionalData: Codable {
     public let titleEvent: String?
     public let typeComponent: String?
     public let actionType: String?
-    public let internalFlow: String?
+    public let flow: String?
     // Store the deleted snaps id in NSUserDefaults, so that when app get relaunch deleted snaps will not display.
 
     enum CodingKeys: String, CodingKey {
         case titleEvent = "title_event"
         case typeComponent = "type_component"
         case actionType = "action_type"
-        case internalFlow = "internal_flow"
+        case flow = "flow"
     }
 }
 

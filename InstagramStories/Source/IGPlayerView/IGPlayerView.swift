@@ -32,11 +32,12 @@ protocol IGPlayerObserver: AnyObject {
 }
 
 protocol PlayerControls: AnyObject {
-    func play(with resource: VideoResource)
+    func play(with resource: VideoResource, videoIsMuted: Bool)
     func play()
     func pause()
     func stop()
     var playerStatus: PlayerStatus { get }
+    func setAudio(videoIsMuted: Bool)
 }
 
 class IGPlayerView: UIView {
@@ -178,12 +179,13 @@ class IGPlayerView: UIView {
 // MARK: - Protocol | PlayerControls
 extension IGPlayerView: PlayerControls {
     
-    func play(with resource: VideoResource) {
+    func play(with resource: VideoResource, videoIsMuted: Bool) {
         
         guard let url = URL(string: resource.filePath) else {fatalError("Unable to form URL from resource")}
         if let existingPlayer = player {
             DispatchQueue.main.async { [weak self] in
                 guard let strongSelf = self else { return }
+                existingPlayer.isMuted = videoIsMuted
                 strongSelf.player = existingPlayer
             }
         } else {
@@ -195,7 +197,7 @@ extension IGPlayerView: PlayerControls {
             if let pLayer = playerLayer {
                 pLayer.videoGravity = .resizeAspect
                 pLayer.frame = self.bounds
-                pLayer.player?.isMuted = false
+                pLayer.player?.isMuted = videoIsMuted
                 self.layer.addSublayer(pLayer)
             }
         }
@@ -243,5 +245,10 @@ extension IGPlayerView: PlayerControls {
             }
         }
         return .unknown
+    }
+    func setAudio(videoIsMuted: Bool) {
+        if let existingPlayer = player {
+            existingPlayer.isMuted = videoIsMuted
+        }
     }
 }

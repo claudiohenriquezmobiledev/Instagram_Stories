@@ -5,7 +5,7 @@
          "last_updated":1504799962,
          "user":{
             "id":"b2",
-            "name":"Transfer",
+            "name":"Transferencias",
             "picture":"https://randomuser.me/api/portraits/med/women/1.jpg"
          },
          "snaps_count":1,
@@ -20,7 +20,7 @@
                    "title_event": "ir a 440%",
                    "type_component": "button",
                    "action_type": "E",
-                   "internal_flow": ""
+                   "flow": "https://www.google.com"
                }
             }
          ]
@@ -30,7 +30,7 @@
          "last_updated":1504799962,
          "user":{
             "id":"b3",
-            "name":"Fulana",
+            "name":"Pagos",
             "picture":"https://randomuser.me/api/portraits/med/women/2.jpg"
          },
          "snaps_count":4,
@@ -45,7 +45,7 @@
                    "title_event": "ir a 11%",
                    "type_component": "button",
                    "action_type": "I",
-                   "internal_flow": "code_001"
+                   "flow": "code_001"
                }
             },
             {
@@ -58,7 +58,7 @@
                    "title_event": "ir a 45678%",
                    "type_component": "link",
                    "action_type": "E",
-                   "internal_flow": ""
+                   "flow": "https://www.google.com"
                }
             },
             {
@@ -71,7 +71,7 @@
                    "title_event": "ir a 09870%",
                    "type_component": "link",
                    "action_type": "E",
-                   "internal_flow": ""
+                   "flow": "https://www.google.com"
                }
             },
             {
@@ -84,7 +84,7 @@
                    "title_event": "ir a 1230%",
                    "type_component": "button",
                    "action_type": "I",
-                   "internal_flow": "code_002"
+                   "flow": "code_002"
                }
             }
          ]
@@ -94,7 +94,7 @@
          "last_updated":1504799992,
          "user":{
             "id":"b4",
-            "name":"Lara",
+            "name":"Tarjetas",
             "picture":"https://randomuser.me/api/portraits/med/women/3.jpg"
          },
          "snaps_count":5,
@@ -125,7 +125,7 @@
                    "title_event": "ir a 490%",
                    "type_component": "button",
                    "action_type": "E",
-                   "internal_flow": ""
+                   "flow": "https://www.google.com"
                }
             },
             {
@@ -146,7 +146,7 @@
                    "title_event": "ir a 30%",
                    "type_component": "link",
                    "action_type": "E",
-                   "internal_flow": ""
+                   "flow": "https://www.google.com"
                }
             }
          ]

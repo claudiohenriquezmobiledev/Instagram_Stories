@@ -17,7 +17,7 @@ public final class IGHomeController: UIViewController {
     private var viewModel: IGHomeViewModel = IGHomeViewModel()
     
     public lazy var homeView: IGHomeView = {
-        let view = IGHomeView(stories: viewModel.getStories())
+        let view = IGHomeView(stories: viewModel.getStories(), videoIsMuted: true)
         view.delegate = self
         return view
     }()
@@ -38,8 +38,12 @@ public final class IGHomeController: UIViewController {
 }
 
 extension IGHomeController: IGHomeViewDelegate {
-    func callToIGStoryPreviewController(stories: [IGStory], handPickedStoryIndex: Int, handPickedSnapIndex: Int) {
+    func callToIGStoryPreviewController(stories: [IGStory],
+                                        videoIsMuted: Bool,
+                                        handPickedStoryIndex: Int,
+                                        handPickedSnapIndex: Int) {
         let storyPreviewScene = IGStoryPreviewController.init(stories: stories,
+                                                              videoIsMuted: videoIsMuted,
                                                               handPickedStoryIndex:  handPickedStoryIndex,
                                                               handPickedSnapIndex: handPickedSnapIndex)
         self.present(storyPreviewScene, animated: true, completion: nil)

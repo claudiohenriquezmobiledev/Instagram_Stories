@@ -44,15 +44,10 @@ final class IGStoryPreviewHeaderView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
+        label.font = label.font.withSize(18)
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         return label
-    }()
-    
-    private lazy var soundButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(#imageLiteral(resourceName: "ic_sound_on"), for: .normal)
-        button.addTarget(self, action: #selector(didTapSoundButton), for: .touchUpInside)
-        return button
     }()
     
     private lazy var closeButton: UIButton = {
@@ -91,7 +86,6 @@ final class IGStoryPreviewHeaderView: UIView {
         addSubview(getProgressView)
         addSubview(snaperImageView)
         addSubview(snaperNameLabel)
-        addSubview(soundButton)
         addSubview(closeButton)
     }
     private func installLayoutConstraints(){
@@ -118,27 +112,17 @@ final class IGStoryPreviewHeaderView: UIView {
         NSLayoutConstraint.activate([
             snaperNameLabel.igLeftAnchor.constraint(equalTo: snaperImageView.igRightAnchor, constant: 10),
             snaperNameLabel.igCenterYAnchor.constraint(equalTo: snaperImageView.igCenterYAnchor),
-            snaperNameLabel.heightAnchor.constraint(equalToConstant: 40),
-            soundButton.igLeftAnchor.constraint(equalTo: snaperNameLabel.igRightAnchor, constant: 10)
-            ])
-        
-        //Setting constraints for soundButton
-        NSLayoutConstraint.activate([
-            soundButton.igLeftAnchor.constraint(equalTo: snaperNameLabel.igRightAnchor, constant: 10),
-            soundButton.igCenterYAnchor.constraint(equalTo: self.igCenterYAnchor),
-//            soundButton.igRightAnchor.constraint(equalTo: closeButton.igLeftAnchor),
-            soundButton.widthAnchor.constraint(equalToConstant: 30),
-            soundButton.heightAnchor.constraint(equalToConstant: 30),
-            closeButton.igLeftAnchor.constraint(equalTo: soundButton.igRightAnchor, constant: 10),
+            snaperNameLabel.heightAnchor.constraint(equalToConstant: 50),
+            closeButton.igLeftAnchor.constraint(equalTo: snaperNameLabel.igRightAnchor)
             ])
         
         //Setting constraints for closeButton
         NSLayoutConstraint.activate([
-            closeButton.igLeftAnchor.constraint(equalTo: soundButton.igRightAnchor, constant: 10),
+            closeButton.igLeftAnchor.constraint(equalTo: snaperNameLabel.igRightAnchor),
             closeButton.igCenterYAnchor.constraint(equalTo: self.igCenterYAnchor),
             closeButton.igRightAnchor.constraint(equalTo: self.igRightAnchor),
-            closeButton.widthAnchor.constraint(equalToConstant: 60),
-            closeButton.heightAnchor.constraint(equalToConstant: 80)
+            closeButton.widthAnchor.constraint(equalToConstant: 40),
+            closeButton.heightAnchor.constraint(equalToConstant: 60)
             ])
         
 
@@ -160,13 +144,7 @@ final class IGStoryPreviewHeaderView: UIView {
         return view
     }
     
-    //MARK: - Selectors    
-    @objc private func didTapSoundButton() {
-        isSoundActivated = !isSoundActivated
-        let icResourceName = isSoundActivated ? "ic_sound_on" : "ic_sound_off"
-        soundButton.setImage(#imageLiteral(resourceName: icResourceName), for: .normal)
-    }
-    
+    //MARK: - Selectors
     @objc func didTapClose(_ sender: UIButton) {
         delegate?.didTapCloseButton()
     }

@@ -11,6 +11,7 @@ import UIKit
 
 protocol IGHomeViewDelegate: AnyObject {
     func callToIGStoryPreviewController(stories: [IGStory],
+                                        videoIsMuted: Bool,
                                         handPickedStoryIndex:  Int,
                                         handPickedSnapIndex: Int)
 }
@@ -20,6 +21,7 @@ public class IGHomeView: UIView {
     private var viewModel: IGHomeViewModel = IGHomeViewModel()
     private var stories: IGStories?
     weak var delegate: IGHomeViewDelegate?
+    private var videoIsMuted: Bool = true
     
     //MARK: - iVars
     lazy var layout: UICollectionViewFlowLayout = {
@@ -29,7 +31,7 @@ public class IGHomeView: UIView {
     }()
     lazy var collectionView: UICollectionView = {
         let cv = UICollectionView.init(frame: CGRect.zero, collectionViewLayout: layout)
-        cv.backgroundColor = .white
+        cv.backgroundColor = .clear
         cv.showsVerticalScrollIndicator = false
         cv.showsHorizontalScrollIndicator = false
         cv.register(IGStoryListCell.self, forCellWithReuseIdentifier: IGStoryListCell.reuseIdentifier)
@@ -38,8 +40,9 @@ public class IGHomeView: UIView {
     }()
     
     //MARK: - Overridden functions
-    public init(stories: IGStories?) {
+    public init(stories: IGStories?, videoIsMuted: Bool) {
         self.stories = stories
+        self.videoIsMuted = videoIsMuted
         super.init(frame: .zero)
 //        backgroundColor = UIColor.rgb(from: 0xEFEFF4)
         self.collectionView.delegate = self
@@ -62,6 +65,7 @@ public class IGHomeView: UIView {
             igTopAnchor.constraint(equalTo: collectionView.igTopAnchor),
             collectionView.igRightAnchor.constraint(equalTo: igRightAnchor),
             collectionView.heightAnchor.constraint(equalToConstant: 100)])
+                    
     }
 }
 
@@ -84,6 +88,7 @@ UICollectionViewDelegateFlowLayout {
        DispatchQueue.main.async {
            if let stories_copy = try? self.stories?.copy().stories {
                self.delegate?.callToIGStoryPreviewController(stories: stories_copy,
+                                                             videoIsMuted: self.videoIsMuted,
                                                         handPickedStoryIndex:  indexPath.row, handPickedSnapIndex: 0)
             }
         }
